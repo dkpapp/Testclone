@@ -3,7 +3,6 @@ import time
 from telegram import InputFile
 from telegram.ext import Updater, CommandHandler
 from pytube import YouTube, Playlist
-from telegram.bot import Bot
 from pytube.cli import on_progress
 
 # Enable logging
@@ -185,17 +184,17 @@ def progress_callback(current, total, update, context):
 
 def main():
     """Start the bot."""
-    bot = Bot(token=TOKEN)
-    dp = bot.dispatcher
+    updater = Updater(TOKEN, update_queue=None)
+    dp = Updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
     # Remove the following lines as add_to_queue command is no longer needed
     # dp.add_handler(CommandHandler("download_video", download_video))
     # dp.add_handler(CommandHandler("download_playlist", download_playlist))
     # dp.add_handler(CommandHandler("add_to_queue", add_to_queue))
     # Start the bot
-    bot.start_polling()
+    updater.start_polling()
     logger.info("Bot started.")
-    bot.idle()
+    updater.idle()
 
 
 if __name__ == '__main__':
