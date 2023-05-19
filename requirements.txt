@@ -1,4 +1,6 @@
 tgcrypto
 pyrogram==1.2.9
-pytube
+pytube==15.0.0
 requests
+pytube-cli 
+python-telegram-bot==20.3
