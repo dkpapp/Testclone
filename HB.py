@@ -14,17 +14,17 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 # Define your Telegram bot token
-TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+TOKEN = '6291981656:AAF86nMi_WL9uWrAqgGGW9rlxLgy2BMnlRY'
 
 # Define PRO_USERS and AUTH_USERS
-PRO_USERS = [123456789, 987654321]  # Telegram user IDs of PRO users
-AUTH_USERS = [456789123]  # Telegram user IDs of AUTH users
+PRO_USERS = [2067727305]  # Telegram user IDs of PRO users
+AUTH_USERS = [2067727305]  # Telegram user IDs of AUTH users
 
 # Define the time gap for AUTH_USERS
 TIME_GAP_AUTH = 30 * 60  # 30 minutes in seconds
 
 # Define the owner ID for broadcasting messages
-OWNER = 135792468  # Telegram user ID of the OWNER
+OWNER = 2067727305  # Telegram user ID of the OWNER
 
 # Store the download queue
 download_queue = []
