@@ -185,7 +185,7 @@ def progress_callback(current, total, update, context):
 def main():
     """Start the bot."""
     updater = Updater(TOKEN, update_queue=None)
-    dp = Updater.dispatcher
+    dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
     # Remove the following lines as add_to_queue command is no longer needed
     # dp.add_handler(CommandHandler("download_video", download_video))
