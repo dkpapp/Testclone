@@ -184,7 +184,7 @@ def progress_callback(current, total, update, context):
 
 def main():
     """Start the bot."""
-    updater = Updater(TOKEN, use_context=True)
+    updater = Updater(TOKEN)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
     # Remove the following lines as add_to_queue command is no longer needed
