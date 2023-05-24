@@ -32,7 +32,7 @@ def check_progress(context):
 
 def main():
     # Set up the Telegram bot
-    updater = Updater(token='YOUR_TELEGRAM_BOT_TOKEN', use_context=True)
+    updater = Updater(token='6150084524:AAHutAX3WQjZxQVOxI4vCdlR4tzyRIotMt8')
     dispatcher = updater.dispatcher
 
     # Define handlers
@@ -48,7 +48,7 @@ def main():
 
     # Set up the progress check job
     job_queue = updater.job_queue
-    job_queue.run_repeating(check_progress, interval=5, context=YOUR_CHAT_ID)
+    job_queue.run_repeating(check_progress, interval=5, context=2067727305)
 
     # Run the bot until you press Ctrl-C
     updater.idle()
