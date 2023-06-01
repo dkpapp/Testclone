@@ -1,11 +1,9 @@
-FROM python:latest
+FROM ubuntu:latest
 
 WORKDIR .
 
 COPY . .
-RUN apt update
-
-RUN apt install ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg
 
 
 
