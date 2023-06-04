@@ -111,12 +111,10 @@ def send_video_to_telegram(chat_id, video_path, message):
         
 # ...
 
-@app.on_callback_query()
-def handle_callback_query(client, query):
-    query.answer()
-    url = query.message.text
-    video_path = download_video(url, query.message)
-    send_video_to_telegram(query.message.chat.id, video_path, query.message)
+
+
+    
+    
 # ...
 
 @app.on_message(filters.regex(url_pattern))
@@ -127,7 +125,9 @@ def handle_url(client, message):
     match = re.search(url_pattern, text)
     if match:
         url = match.group(0)
-
+        video_path = download_video(url, message)
+        send_video_to_telegram(message.chat.id, video_path, message)
+        os.remove(video_path)
     else:
         message.reply_text('Invalid URL!')
 
