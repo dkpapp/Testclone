@@ -3,7 +3,7 @@ import time
 import math
 from pyrogram import Client, filters
 import yt_dlp as yt
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+#from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
 
 # Telegram Bot Token
