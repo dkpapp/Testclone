@@ -80,9 +80,9 @@ def TimeFormatter(milliseconds: int) -> str:
           ((str(seconds) + "s, ") if seconds else "")
     return tmp[:-2]
 #...
-def download_video(url, format_code, message):
+def download_video(url, message):
     ydl_opts = {
-        'format': format_code,
+        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'outtmpl': '%(title)s.%(ext)s',
         'progress_hooks': [lambda d: progress_for_pyrogram(d['downloaded_bytes'], d['total_bytes'], None, 'Downloading', message, time.time())]
     }
@@ -103,14 +103,7 @@ def send_video_to_telegram(chat_id, video_path, message):
 
 
 
-def send_video_quality_options(client, message, url):
-    ydl_opts = {
-        'listformats': True,
-    }
-    with yt.YoutubeDL(ydl_opts) as ydl:
-        info_dict = ydl.extract_info(url, download=False)
-        formats = info_dict.get('formats', [])
-        buttons = []
+
 
         for format_data in formats:
             format_id = format_data.get('format_id', '')
@@ -128,8 +121,7 @@ def send_video_quality_options(client, message, url):
 def handle_callback_query(client, query):
     query.answer()
     url = query.message.text
-    format_code = query.data
-    video_path = download_video(url, format_code, query.message)
+    video_path = download_video(url, query.message)
     send_video_to_telegram(query.message.chat.id, video_path, query.message)
 # ...
 
