@@ -105,16 +105,10 @@ def send_video_to_telegram(chat_id, video_path, message):
 
 
 
-        for format_data in formats:
-            format_id = format_data.get('format_id', '')
-            format_desc = format_data.get('format_note', '')
-            format_size = format_data.get('filesize', '')
-            format_button = InlineKeyboardButton(f'{format_desc} - {format_size}', callback_data=format_id)
-            buttons.append(format_button)
+        
+             
 
-        reply_markup = InlineKeyboardMarkup([buttons])
-        message.reply_text('Choose video quality:', reply_markup=reply_markup)
-
+        
 # ...
 
 @app.on_callback_query()
@@ -133,7 +127,7 @@ def handle_url(client, message):
     match = re.search(url_pattern, text)
     if match:
         url = match.group(0)
-        send_video_quality_options(client, message, url)
+
     else:
         message.reply_text('Invalid URL!')
 
