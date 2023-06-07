@@ -84,7 +84,14 @@ def download_video(url, message):
     ydl_opts = {
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'outtmpl': '%(title)s.%(ext)s',
-        'progress_hooks': [lambda d: progress_for_pyrogram(d['downloaded_bytes'], d['total_bytes'], None, 'Downloading', message, time.time())]
+        'progress_hooks': [lambda d: progress_for_pyrogram(
+            d.get('downloaded_bytes', 0),
+            d.get('total_bytes', 0),
+            None,
+            'Downloading',
+            message,
+            time.time()
+        )]
     }
     with yt.YoutubeDL(ydl_opts) as ydl:
        # info_dict = ydl.extract_info(url, download=False)
