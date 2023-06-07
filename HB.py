@@ -88,10 +88,10 @@ def download_video(url, message):
     }
     with yt.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(url, download=False)
-        video_title = info_dict.get('title', 'video')
-        video_ext = info_dict.get('ext', 'mp4')
+        video_title = info_dict.get('title', None)
+        video_ext = info_dict.get('ext', None)
         out_file = f'{video_title}.{video_ext}'
-        ydl_opts['outtmpl'] = out_file
+        ydl_opts('outtmpl') = out_file
         ydl.download([url])
         return out_file
 
