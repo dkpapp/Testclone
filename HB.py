@@ -114,7 +114,7 @@ def download_video(url, message):
 
 def send_video_to_telegram(chat_id, video_path, message):
     app.send_video(chat_id=chat_id, video=video_path, progress=progress_for_pyrogram, progress_args=(message, time.time()))
-    os.remove(video_path)
+   # os.remove(video_path)
 
 # ...
 
