@@ -103,8 +103,14 @@ def download_video(url, message):
        # video_ext = info_dict.get('ext', None)
        # out_file = f'{video_title}.{video_ext}'
        # ydl_opts['outtmpl'] = out_file
+       # ydl.download([url])
+       # return 
         ydl.download([url])
-        return 
+        info_dict = ydl.extract_info(url, download=False)
+        video_title = info_dict.get('title', None)
+        video_ext = info_dict.get('ext', None)
+        out_file = f'{video_title}.{video_ext}'
+        return out_file
 
 def send_video_to_telegram(chat_id, video_path, message):
     app.send_video(chat_id=chat_id, video=video_path, progress=progress_for_pyrogram, progress_args=(message, time.time()))
