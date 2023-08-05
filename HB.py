@@ -135,9 +135,9 @@ async def download_video(c, m):
         'format': 'bv*[height<=480][ext=mp4]+ba[ext=m4a]/b[height<=480]',
        # outtmpl: '%(title)s.%(ext)s',
        # 'progress_hooks': [lambda d: progress_for_pyrogram(
-        'progress_hooks': [lambda d: download_progress_hook(d, msg, c)   
-        
+        'progress_hooks': [lambda d: download_progress_hook(d, msg, c)]   
     }
+    
     with yt.YoutubeDL(ydl_opts) as ydl:
         try:
             await run_async(ydl.download, [url])
