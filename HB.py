@@ -134,7 +134,8 @@ def etas(et, tot, downloaded_bytes, s):
          eta = get_readable_time(et)
          return eta
     try:
-       seconds = (tot - downloaded_bytes) / s           eta = get_readable_time(seconds)
+       seconds = (tot - downloaded_bytes) / s
+       eta = get_readable_time(seconds)
        return eta
     except:
           return '-'
