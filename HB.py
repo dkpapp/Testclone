@@ -144,8 +144,10 @@ def download_progress_hook(d, message, client):
         current = d.get("_downloaded_bytes_str") or humanbytes(int(d.get("downloaded_bytes", 1)))
         if d.get('total_bytes'):
                    tot = d['total_bytes']
-        elif d.get('total_bytes_estimate'):
-                   tot = d['total_bytes_estimate']
+        else:
+            
+      #  elif d.get('total_bytes_estimate'):
+          #         tot = d['total_bytes_estimate']
         total = humanbytes(tot)
        # total = d.get("_total_bytes_str") or d.get("_total_bytes_estimate_str")
         file_name = d.get("filename")
