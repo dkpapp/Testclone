@@ -4,7 +4,7 @@ import math
 from pyrogram import Client, filters
 import yt_dlp as yt
 from yt_dlp.utils import DownloadError
-#from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
 import asyncio
 import threading
@@ -14,7 +14,7 @@ from pyrogram.errors import MessageNotModified, FloodWait
 # Telegram Bot Token
 API_ID = 14604313
 API_HASH = 'a8ee65e5057b3f05cf9f28b71667203a'
-BOT_TOKEN = '6150084524:AAHutAX3WQjZxQVOxI4vCdlR4tzyRIotMt8'
+BOT_TOKEN = '6291981656:AAF86nMi_WL9uWrAqgGGW9rlxLgy2BMnlRY'
 
 # Initialize the Pyrogram client
 app = Client("YouDl", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
@@ -127,15 +127,48 @@ async def run_async(func, *args, **kwargs):
     loop = asyncio.get_running_loop()
     return await loop.run_in_executor(None, func, *args, **kwargs)
 
-def download_video(c, m):
+@app.on_message(filters.regex(url_pattern))
+async def download_video(c, m):
+    url = m.text
+    msg = await m.reply_text("Downloading...")
     ydl_opts = {
-        "format": 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+        'format': 'bv*[height<=480][ext=mp4]+ba[ext=m4a]/b[height<=480]',
        # outtmpl: '%(title)s.%(ext)s',
        # 'progress_hooks': [lambda d: progress_for_pyrogram(
-        "progress_hooks": [lambda d: download_progress_hook(d, m, c)   
+        'progress_hooks': [lambda d: download_progress_hook(d, msg, c)   
         
     }
     with yt.YoutubeDL(ydl_opts) as ydl:
+        try:
+            await run_async(ydl.download, [url])
+        except DownloadError:
+            await msg.edit("Sorry, an error occurred")
+            return
+    for file in os.listdir('.'):
+        if file.endswith(".mp4"):
+            await msg.reply_video(
+                f"{file}",
+               # thumb="downloads/src/pornhub.jpeg",
+                width=852,
+                height=480,
+                caption="The content you requested has been successfully downloaded!",
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton("• Donate •", url="https://trakteer.id/levina-crqid/tip"),
+                        ],
+                    ],
+                ),
+            )
+            os.remove(f"{file}")
+            break
+        else:
+            continue
+
+
+    await msg.delete()
+
+  #  with yt.YoutubeDL(ydl_opts) as ydl:
        # info_dict = ydl.extract_info(url, download=False)
        # video_title = info_dict.get('title', None)
        # video_ext = info_dict.get('ext', None)
@@ -143,13 +176,13 @@ def download_video(c, m):
        # ydl_opts['outtmpl'] = out_file
        # ydl.download([url])
        # return 
-        ydl.download([url])
-        info_dict = ydl.extract_info(url, download=False)
-        video_title = info_dict.get('title', None)
-        video_ext = info_dict.get('ext', None)
-        out_file = f'{video_title}.{video_ext}'
-        return out_file
-
+       # ydl.download([url])
+       # info_dict = ydl.extract_info(url, download=False)
+      #  video_title = info_dict.get('title', None)
+      #  video_ext = info_dict.get('ext', None)
+       # out_file = f'{video_title}.{video_ext}'
+       # return out_file
+'''
 def send_video_to_telegram(chat_id, video_path, message):
     app.send_video(chat_id=chat_id, video=video_path, progress=progress_for_pyrogram, progress_args=(message, time.time()))
    # os.remove(video_path)
@@ -172,7 +205,7 @@ def send_video_to_telegram(chat_id, video_path, message):
     
 # ...
 
-@app.on_message(filters.regex(url_pattern))
+
 def handle_url(client, message):
     text = message.text
 
@@ -185,7 +218,7 @@ def handle_url(client, message):
         os.remove(video_path)
     else:
         message.reply_text('Invalid URL!')
-
+'''
 def main():
     # Start the Pyrogram client
     app.run()
