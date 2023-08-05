@@ -142,11 +142,11 @@ def etas(et, tot, downloaded_bytes, s):
 def download_progress_hook(d, message, client):
     if d['status'] == 'downloading':
         current = d.get("_downloaded_bytes_str") or humanbytes(int(d.get("downloaded_bytes", 1)))
-        tot = None
-        if d.get('total_bytes'):
-                 tot = d['total_bytes']
-        else:
-             tot = d['total_bytes_estimate']
+        tot = d['total_bytes'] or d['total_bytes_estimate']
+       # if d.get('total_bytes'):
+            #     tot = d['total_bytes']
+       # else:
+        #     tot = d['total_bytes_estimate']
       #  elif d.get('total_bytes_estimate'):
           #         tot = d['total_bytes_estimate']
         total = humanbytes(tot)
