@@ -187,8 +187,8 @@ async def download_video(c, m):
     with yt.YoutubeDL(ydl_opts) as ydl:
         try:
             await run_async(ydl.download, [url])
-        except DownloadError:
-            await msg.edit("Sorry, an error occurred")
+        except DownloadError as d:
+            await msg.edit(f"Sorry, an error {d} occurred")
             return
     for file in os.listdir('.'):
         if file.endswith(".mp4"):
