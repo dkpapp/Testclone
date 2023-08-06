@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 import yt_dlp as yt
 from yt_dlp.utils import DownloadError
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import os, wget
+import os
 import asyncio
 import threading
 from pyrogram.errors import MessageNotModified, FloodWait
