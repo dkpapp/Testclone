@@ -210,7 +210,7 @@ async def download_video(c, m):
     
     with yt.YoutubeDL(ydl_opts) as ydl:
         try:
-            ytdl_data = ytdl.extract_info(url, download=False)
+            ytdl_data = ydl.extract_info(url, download=False)
             await run_async(ydl.download, [url])
         except DownloadError as d:
             await msg.edit(f"Sorry, an error {d} occurred")
