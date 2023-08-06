@@ -9,7 +9,8 @@ import os
 import asyncio
 import threading
 from pyrogram.errors import MessageNotModified, FloodWait
-
+from youtube_search import YoutubeSearch
+from youtubesearchpython import SearchVideos
 
 # Telegram Bot Token
 API_ID = 14604313
@@ -177,15 +178,37 @@ async def run_async(func, *args, **kwargs):
 async def download_video(c, m):
     url = m.text
     msg = await m.reply_text("Downloading...")
+    search = SearchVideos(f"{url}", offset=1, mode="dict", max_results=1)
+    mi = search.result()
+    mio = mi["search_result"]
+    mo = mio[0]["link"]
+    thum = mio[0]["title"]
+    fridayz = mio[0]["id"]
+    mio[0]["channel"]
+    kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
+    await asyncio.sleep(0.6)
+    url = mo
+    sedlyf = wget.download(kekme)
     ydl_opts = {
-        'format': 'bv*[height<=480][ext=mp4]+ba[ext=m4a]/b[height<=480]',
+        #'format': 'bv*[height<=480][ext=mp4]+ba[ext=m4a]/b[height<=480]',
+        "format": "best",
+        "addmetadata": True,
+        "key": "FFmpegMetadata",
+        "prefer_ffmpeg": True,
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [{"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}],
+       # "outtmpl": "%(id)s.mp4",
+        "logtostderr": False,
+        "quiet": True,
        # outtmpl: '%(title)s.%(ext)s',
        # 'progress_hooks': [lambda d: progress_for_pyrogram(
-        'progress_hooks': [lambda d: download_progress_hook(d, msg, c)]   
+        "progress_hooks": [lambda d: download_progress_hook(d, msg, c)]   
     }
     
     with yt.YoutubeDL(ydl_opts) as ydl:
         try:
+            ytdl_data = ytdl.extract_info(url, download=False)
             await run_async(ydl.download, [url])
         except DownloadError as d:
             await msg.edit(f"Sorry, an error {d} occurred")
@@ -195,8 +218,13 @@ async def download_video(c, m):
             await msg.reply_video(
                 f"{file}",
                # thumb="downloads/src/pornhub.jpeg",
-                width=852,
-                height=480,
+                duration=int(ytdl_data["duration"]),
+                #file_name=str(ytdl_data["title"]),
+                thumb=sedlyf,
+               # caption=capy,
+                supports_streaming=True,        
+                #width=852,
+               # height=480,
                 caption="The content you requested has been successfully downloaded!",
                 reply_markup=InlineKeyboardMarkup(
                     [
