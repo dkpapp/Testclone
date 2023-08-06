@@ -9,3 +9,5 @@ ffmpeg
 ethon==0.1.2
 psutil
 python-ffmpeg
+youtube-search-python
+youtube-search
