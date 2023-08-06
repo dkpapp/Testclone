@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 import yt_dlp as yt
 from yt_dlp.utils import DownloadError
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import os
+import os, wget
 import asyncio
 import threading
 from pyrogram.errors import MessageNotModified, FloodWait
@@ -178,6 +178,7 @@ async def run_async(func, *args, **kwargs):
 async def download_video(c, m):
     url = m.text
     msg = await m.reply_text("Downloading...")
+    '''
     search = SearchVideos(f"{url}", offset=1, mode="dict", max_results=1)
     mi = search.result()
     mio = mi["search_result"]
@@ -189,6 +190,7 @@ async def download_video(c, m):
     await asyncio.sleep(0.6)
     url = mo
     sedlyf = wget.download(kekme)
+    '''
     ydl_opts = {
         #'format': 'bv*[height<=480][ext=mp4]+ba[ext=m4a]/b[height<=480]',
         "format": "best",
@@ -200,7 +202,7 @@ async def download_video(c, m):
         "postprocessors": [{"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}],
        # "outtmpl": "%(id)s.mp4",
         "logtostderr": False,
-        "quiet": True,
+        #"quiet": True,
        # outtmpl: '%(title)s.%(ext)s',
        # 'progress_hooks': [lambda d: progress_for_pyrogram(
         "progress_hooks": [lambda d: download_progress_hook(d, msg, c)]   
@@ -220,7 +222,7 @@ async def download_video(c, m):
                # thumb="downloads/src/pornhub.jpeg",
                 duration=int(ytdl_data["duration"]),
                 #file_name=str(ytdl_data["title"]),
-                thumb=sedlyf,
+                #thumb=sedlyf,
                # caption=capy,
                 supports_streaming=True,        
                 #width=852,
@@ -229,7 +231,7 @@ async def download_video(c, m):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("• Donate •", url="https://trakteer.id/levina-crqid/tip"),
+                            InlineKeyboardButton("• Donate •", url="https://t.me/dhruvprajapati2"),
                         ],
                     ],
                 ),
