@@ -221,7 +221,7 @@ async def download_video(c, m):
             await msg.reply_video(
                 f"{file}",
                # thumb="downloads/src/pornhub.jpeg",
-                duration=int(ytdl_data["duration"]),
+                #duration=int(ytdl_data["duration"]),
                 #file_name=str(ytdl_data["title"]),
                 #thumb=sedlyf,
                # caption=capy,
