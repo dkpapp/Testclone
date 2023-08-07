@@ -153,17 +153,17 @@ def download_progress_hook(d, message, client):
         total = humanbytes(tot)
        # total = d.get("_total_bytes_str") or d.get("_total_bytes_estimate_str")
         file_name = d.get("filename")
-       # downloaded_bytes = d['downloaded_bytes']
+        downloaded_bytes = d.get("downloaded_bytes")
         
         eta = d.get('_eta_str', "N/A")
       #  percent = d.get("_percent_str", "N/A")
        # speed = d.get("_speed_str", "N/A")
-        s = d['speed']
+        s = d.get("speed")
         speed = humanbytes(s)
         #et = d.get('eta', '-')
        # eta = etas(et, tot, downloaded_bytes, s)
        # try:
-        prog = (current / s) * 100
+        prog = (downloaded_bytes / s) * 100
        # except:
              #  pass
         progress = round(prog, 2)
