@@ -3,7 +3,7 @@ FROM python:latest
 WORKDIR .
 
 COPY . .
-RUN apt-get update && apt-get install -y ffmpeg
+#RUN apt-get update && apt-get install -y ffmpeg
 
 
 
