@@ -161,11 +161,11 @@ def download_progress_hook(d, message, client):
         speed = humanbytes(s)
         #et = d.get('eta', '-')
        # eta = etas(et, tot, downloaded_bytes, s)
-        try:
-            prog = (downloaded_bytes / s) * 100
-        except:
-               pass
-        progress = round(prog, 2)
+       # try:
+        prog = (downloaded_bytes / s) * 100
+       # except:
+             #  pass
+        #progress = round(prog, 2)
        # speed = d.get("_speed_str", "N/A")
         to_edit = f"📥 <b>Downloading!</b>\n\n<b>Name :</b> <code>{file_name}</code>\n<b>Size :</b> <code>{total}</code>\n<b>Speed :</b> <code>{speed}/s</code>\n<b>ETA :</b> <code>{eta}</code>\n\n<b>Downloaded: </b> <code>{current}</code> from <code>{total}</code> \n<b>Percentage: </b> <code>{progress}%</code>"
         threading.Thread(target=edit_msg, args=(client, message, to_edit)).start()
