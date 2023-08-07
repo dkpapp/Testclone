@@ -155,12 +155,12 @@ def download_progress_hook(d, message, client):
         file_name = d.get("filename")
         downloaded_bytes = d['downloaded_bytes']
         
-       # eta = d.get('_eta_str', "N/A")
+        eta = d.get('_eta_str', "N/A")
       #  percent = d.get("_percent_str", "N/A")
         s = d['speed']
         speed = humanbytes(s)
-        et = d.get('eta', '-')
-        eta = etas(et, tot, downloaded_bytes, s)
+        #et = d.get('eta', '-')
+       # eta = etas(et, tot, downloaded_bytes, s)
         try:
             prog = (downloaded_bytes / s) * 100
         except:
