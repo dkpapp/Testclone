@@ -11,3 +11,5 @@ psutil
 python-ffmpeg
 youtube-search-python
 youtube-search
+hachoir
+pytube
