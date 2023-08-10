@@ -100,7 +100,7 @@ async def urlup(bot, message):
                 "geo_bypass": True,
                 "nocheckcertificate": True,
                 "postprocessors": [{"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}],
-                "ignoreerrors": True
+                "ignoreerrors": True,
                 "usenetrc": True,
                 "cookiefile": "cookies.txt",
                 "allow_multiple_video_streams": True,
