@@ -124,7 +124,7 @@ async def download_video(bot, message):
                 #"quiet": True,
                 # outtmpl: '%(title)s.%(ext)s',
                 # 'progress_hooks': [lambda d: progress_for_pyrogram(
-                "progress_hooks": [lambda d: download_progress_hook(d, msg, c)]
+                "progress_hooks": [lambda d: download_progress_hook(d, boa, bot)]
             }
             with yt.YoutubeDL(ydl_opts) as ydl:
                try:
