@@ -1,4 +1,4 @@
-import yt_dlp
+import yt_dlp as yt
 import re
 import time
 import math
