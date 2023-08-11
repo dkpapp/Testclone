@@ -22,13 +22,13 @@ BOT_TOKEN = '6291981656:AAF86nMi_WL9uWrAqgGGW9rlxLgy2BMnlRY'
 app = Client("YouDl", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
 # URL regex pattern
-url_pattern = '(https?://[^\s]+)'
+ url_pattern = '(https?://[^\s]+)'
 
-async def run_async(func, *args, **kwargs):
+ async def run_async(func, *args, **kwargs):
     loop = asyncio.get_running_loop()
     return await loop.run_in_executor(None, func, *args, **kwargs)
 
-def humanbytes(size):
+ def humanbytes(size):
     if not size:
         return ""
     power = 2 ** 10
@@ -40,7 +40,7 @@ def humanbytes(size):
     return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
 
 
-def edit_msg(client, message, to_edit):
+ def edit_msg(client, message, to_edit):
     try:
         client.loop.create_task(message.edit(to_edit))
     except FloodWait as e:
@@ -53,7 +53,7 @@ def edit_msg(client, message, to_edit):
 # async def run_async(func, *args, **kwargs):
 #    loop = asyncio.get_running_loop()
    # return await loop.run_in_executor(None, func, *args, **kwargs)
-async def Mdata01(download_directory):
+ async def Mdata01(download_directory):
           width = 0
           height = 0
           duration = 0
@@ -66,8 +66,8 @@ async def Mdata01(download_directory):
               if metadata.has("height"):
                   height = metadata.get("height")
           return width, height, duration
-@app.on_message(filters.incoming & filters.private & filters.regex((pattern=".*http.*"))
-async def urlup(bot, message):
+ @app.on_message(filters.incoming & filters.private & filters.regex((pattern=".*http.*"))
+ async def urlup(bot, message):
         link = message.text  
         boa = await message.reply_text("**DOWNLOADING**")
         if 'playlist' in link:
@@ -147,7 +147,7 @@ async def urlup(bot, message):
                 else:
                     continue
             await boa.delete()
-def download_progress_hook(d, message, client):
+ def download_progress_hook(d, message, client):
     if d['status'] == 'downloading':
         current = d.get("_downloaded_bytes_str") or humanbytes(int(d.get("downloaded_bytes", 1)))
         total = d.get("_total_bytes_str") or d.get("_total_bytes_estimate_str")
@@ -157,4 +157,7 @@ def download_progress_hook(d, message, client):
         speed = d.get("_speed_str", "N/A")
         to_edit = f"📥 <b>Downloading!</b>\n\n<b>Name :</b> <code>{file_name}</code>\n<b>Size :</b> <code>{total}</code>\n<b>Speed :</b> <code>{speed}</code>\n<b>ETA :</b> <code>{eta}</code>\n\n<b>Percentage: </b> <code>{current}</code> from <code>{total} (__{percent}__)</code>"
         threading.Thread(target=edit_msg, args=(client, message, to_edit)).start()
-app.run
+def main():
+   app.run
+if __name__ == '__main__':
+    main()
