@@ -85,7 +85,8 @@ async def download_video(bot, message):
      if 'playlist' in link:
             pyt = Playlist(link)
             for video in pyt.videos:
-                  phd = video.streams.get_by_resolution(resolution ='480p')
+                  #phd = video.streams.get_by_resolution(resolution ='480p')
+                  phd = video.streams.get_highest_resolution()
                   wide = phd.download()
                   width, height, duration = await Mdata01(wide)
                   await  bot.send_video(
