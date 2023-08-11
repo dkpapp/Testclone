@@ -22,7 +22,7 @@ BOT_TOKEN = '6291981656:AAF86nMi_WL9uWrAqgGGW9rlxLgy2BMnlRY'
 app = Client("YouDl", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
 # URL regex pattern
- url_pattern = '(https?://[^\s]+)'
+ url_pattern = r'(https?://[^\s]+)'
 
  async def run_async(func, *args, **kwargs):
     loop = asyncio.get_running_loop()
@@ -66,7 +66,7 @@ app = Client("YouDl", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
               if metadata.has("height"):
                   height = metadata.get("height")
           return width, height, duration
- @app.on_message(filters.incoming & filters.private & filters.regex((pattern=".*http.*"))
+ @app.on_message(filters.incoming & filters.private & filters.regex((url_pattern))
  async def urlup(bot, message):
         link = message.text  
         boa = await message.reply_text("**DOWNLOADING**")
