@@ -159,5 +159,5 @@ app = Client("YouDl", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
         threading.Thread(target=edit_msg, args=(client, message, to_edit)).start()
 def main():
    app.run
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
