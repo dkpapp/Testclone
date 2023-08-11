@@ -85,9 +85,12 @@ async def download_video(bot, message):
      if 'playlist' in link:
             pyt = Playlist(link)
             for video in pyt.videos:
-                  #phd = video.streams.get_by_resolution(resolution ='480p')
-                  phd = video.streams.get_highest_resolution()
-                  wide = phd.download()
+                  try:
+                      phd = video.streams.get_by_resolution(resolution ='360p')
+                      wide = phd.download()
+                  except:
+                        phd = video.streams.get_highest_resolution()
+                        wide = phd.download()
                   width, height, duration = await Mdata01(wide)
                   await  bot.send_video(
                             chat_id = message.chat.id, 
@@ -97,8 +100,8 @@ async def download_video(bot, message):
                             height=height,
                             caption=(f"⭕️ PLAYLIST : "+ pyt.title + "\n📥 DOWNLOADED " + "\n✅ JOIN @HKBOTZ" ),
                             video = wide,
-                            progress=progress_for_pyrogram,
-                            progress_args=(bot, "UPLOADING", boa, cp_time)
+                           # progress=progress_for_pyrogram,
+                           # progress_args=(bot, "UPLOADING", boa, cp_time)
                   )
                   os.remove(wide)
             await boa.delete()   
