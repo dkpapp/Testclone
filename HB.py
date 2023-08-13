@@ -138,7 +138,7 @@ async def download_video(bot, message):
                   await boa.edit(f"Sorry, an error {d} occurred")
                   return
             for file in os.listdir('.'):
-                if file.endswith(".mp4"):
+              if file.endswith(".mp4") or file.endswith(".mkv"):
                     width, height, duration = await Mdata01(file)
                     await boa.reply_video(
                         f"{file}",
