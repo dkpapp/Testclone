@@ -159,8 +159,8 @@ async def download_video(bot, message):
                     )
                     os.remove(f"{file}")
                     break
-                else:
-                    continue
+             else:
+                 continue
             await boa.delete()
     
 def main():
