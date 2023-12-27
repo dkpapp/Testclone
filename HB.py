@@ -15,9 +15,9 @@ async def start(client, message):
     current_time = datetime.now().strftime("%H:%M:%S")
     await message.reply_text(f"Welcome, {message.from_user.mention}! It's currently {current_time}.")
 
-@app.on_message(filters.command("clone", reply_to_message=True))
+@app.on_message(filters.command("clone"))
 async def clone(client, message):
-    if message.reply_to_message.text.startswith("Bot Token: "):
+    
         bot_token = message.reply_to_message.text.split(":", 1)[1].strip()
 
         cloned_bot = Client("cloned_bot" + str(len(bots)), api_id=API_ID, api_hash=API_HASH, bot_token=bot_token)
