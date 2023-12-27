@@ -3,12 +3,12 @@ from datetime import datetime
 from pyrogram import Client, filters
 
 # Configuration
-API_ID = 1234567  # Replace with your API ID
-API_HASH = "your_api_hash"  # Replace with your API hash
-
+API_ID = 14604313  # Replace with your API ID
+API_HASH = "a8ee65e5057b3f05cf9f28b71667203a"  # Replace with your API hash
+TOKEN = "6150084524:AAHutAX3WQjZxQVOxI4vCdlR4tzyRIotMt8"
 bots = []  # List to store cloned bot instances
 
-app = Client("main_bot", api_id=API_ID, api_hash=API_HASH)
+app = Client("main_bot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
 @app.on_message(filters.command("start"))
 async def start(client, message):
