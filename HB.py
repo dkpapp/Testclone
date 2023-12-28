@@ -1,6 +1,6 @@
 import asyncio
 from datetime import datetime
-from pyrogram import Client, filters
+from pyromodz import Client, filters
 
 # Configuration
 API_ID = 14604313  # Replace with your API ID
