@@ -1,5 +1,5 @@
 tgcrypto
-pyrogram
+pyromodz
 requests
 Flask
 gunicorn
