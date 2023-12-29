@@ -5,7 +5,7 @@ from pyromodz import Client, filters
 # Configuration
 API_ID = 14604313  # Replace with your API ID
 API_HASH = "a8ee65e5057b3f05cf9f28b71667203a"  # Replace with your API hash
-TOKEN = "6150084524:AAHutAX3WQjZxQVOxI4vCdlR4tzyRIotMt8"
+TOKEN = "6155002509:AAFsGEZh95aE6Jag-n2o7l6rwuDMvf4SiWg"
 bots = []  # List to store cloned bot instances
 
 app = Client("main_bot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
@@ -18,7 +18,7 @@ async def start(client, message):
 @app.on_message(filters.command("clone"))
 async def clone(client, message):
     
-        bot_token = message.reply_to_message.text.split(":", 1)[1].strip()
+        bot_token = message.text.split(" ")[1].strip()
 
         cloned_bot = Client("cloned_bot" + str(len(bots)), api_id=API_ID, api_hash=API_HASH, bot_token=bot_token)
         bots.append(cloned_bot)
