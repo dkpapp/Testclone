@@ -7,7 +7,7 @@ from datetime import datetime
 from pyromodz import Client, filters
 import logging
 from umongo import Instance, Document, fields
-import motor.motor_asyncio
+import motor
 import shutil
 logging.basicConfig(
     level=logging.INFO, 
