@@ -35,6 +35,7 @@ async def get_clones(client, message):
 
 async def main():
     await app.run()
+    await idle()
     await asyncio.gather(*[bot.run() for bot in bots])
 
 if __name__ == "__main__":
