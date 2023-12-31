@@ -24,7 +24,7 @@ async def clone(client, message):
         bots.append(cloned_bot)
 
         try:
-            await cloned_bot.run()
+            await cloned_bot.start()
             await message.reply_text("Bot cloned successfully!")
         except Exception as e:
             await message.reply_text("Error cloning bot: " + str(e))
@@ -34,7 +34,7 @@ async def get_clones(client, message):
     await message.reply_text(f"Total cloned bots: {len(bots)}")
 
 async def main():
-    await app.run()
+    await app.start()
     await idle()
     await asyncio.gather(*[bot.run() for bot in bots])
 
