@@ -22,7 +22,12 @@ API_ID = 14604313  # Replace with your API ID
 API_HASH = "a8ee65e5057b3f05cf9f28b71667203a"  # Replace with your API hash
 TOKEN = "6155002509:AAFsGEZh95aE6Jag-n2o7l6rwuDMvf4SiWg"
 bots = []  # List to store cloned bot instances
-
+class Translation:
+    STATUS_TXT = """<b>᚛› 𝚃𝙾𝚃𝙰𝙻 𝙵𝙸𝙻𝙴𝚂: <code>{}</code></b>
+<b>᚛› 𝚃𝙾𝚃𝙰𝙻 𝚄𝚂𝙴𝚁𝚂: <code>{}</code></b>
+<b>᚛› 𝚃𝙾𝚃𝙰𝙻 𝙲𝙷𝙰𝚃𝚂: <code>{}</code></b>
+<b>᚛› 𝚄𝚂𝙴𝙳 𝚂𝚃𝙾𝚁𝙰𝙶𝙴: <code>{}</code> 𝙼𝙱</b>
+<b>᚛› 𝙵𝚁𝙴𝙴 𝚂𝚃𝙾𝚁𝙰𝙶𝙴: <code>{}</code> 𝙼𝙱</b>"""
 app = Client("main_bot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
 @app.on_message(filters.command("start"))
@@ -51,6 +56,40 @@ async def clone(client, message):
 @app.on_message(filters.command("clones"))
 async def get_clones(client, message):
     await message.reply_text(f"Total cloned bots: {len(bots)}")
+
+@app.on_message(filters.command("mongo"))
+async def start(client, message):
+     dburl = message.text.split(" ")[1]
+     dbname = message.text.split(" ")[2]
+     COLLECTION_NAME = message.text.split(" ")[3]
+     rju = await message.reply('<b>Processing🔰...</b>')
+     try:
+        mongo = motor.motor_asyncio.AsyncIOMotorClient(dburl)
+        db = mongo[dbname]
+        col = db.users
+        grp = db.groups
+        sizes = await db.command("dbstats")['dataSize']
+     except Exception as e:
+           await rju.edit(f"Error **{e}**")
+     instance = Instance.from_db(db)
+     @instance.register
+     class Media(Document):
+          file_id = fields.StrField(attribute='_id')
+          file_ref = fields.StrField(allow_none=True)
+          file_name = fields.StrField(required=True)
+          file_size = fields.IntField(required=True)
+          file_type = fields.StrField(allow_none=True)
+          mime_type = fields.StrField(allow_none=True)
+          caption = fields.StrField(allow_none=True)
+          class Meta:
+              collection_name = COLLECTION_NAME
+     files = await Media.count_documents()
+     size = get_size(sizes)
+     free = 536870912 - size
+     free = get_size(free)
+     total_users = await col.count_documents({})
+     totl_chats = await grp.count_documents({})
+     await rju.edit(Translation.STATUS_TXT.format(files, total_users, totl_chats, size, free))
 
 async def main():
     await app.start()
