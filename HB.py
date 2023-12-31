@@ -118,9 +118,10 @@ async def start(client, message):
      await rju.edit(Translation.STATUS_TXT.format(files, total_users, totl_chats, size, free))
 
 async def main():
+    logit("Hello Master Dhruv 🥳")
     await app.start()
     await idle()
     await asyncio.gather(*[bot.run() for bot in bots])
-    logit("Hello Master Dhruv 🥳")
+    
 if __name__ == "__main__":
     asyncio.run(main())
