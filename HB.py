@@ -18,13 +18,13 @@ logging.basicConfig(
     ],
     datefmt="%d/%b/%Y | %H:%M:%S %p",
 )
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
+logging.getLogger("pyromodz").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 logit = logger.info
 # Configuration
 API_ID = 14604313  # Replace with your API ID
 API_HASH = "a8ee65e5057b3f05cf9f28b71667203a"  # Replace with your API hash
-TOKEN = "6155002509:AAFsGEZh95aE6Jag-n2o7l6rwuDMvf4SiWg"
+TOKEN = "1612398731:AAEXB9oYGJ6cCYegSlgx2QwgDHian2gAQkM"
 bots = []  # List to store cloned bot instances
 class Translation:
     STATUS_TXT = """<b>᚛› 𝚃𝙾𝚃𝙰𝙻 𝙵𝙸𝙻𝙴𝚂: <code>{}</code></b>
