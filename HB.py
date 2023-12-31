@@ -24,7 +24,7 @@ logit = logger.info
 # Configuration
 API_ID = 14604313  # Replace with your API ID
 API_HASH = "a8ee65e5057b3f05cf9f28b71667203a"  # Replace with your API hash
-TOKEN = "1612398731:AAEXB9oYGJ6cCYegSlgx2QwgDHian2gAQkM"
+TOKEN = "1612398731:AAH6nKToUUeO9DHsKXFsvRnAn6dFJJ3sQtM"
 bots = []  # List to store cloned bot instances
 class Translation:
     STATUS_TXT = """<b>᚛› 𝚃𝙾𝚃𝙰𝙻 𝙵𝙸𝙻𝙴𝚂: <code>{}</code></b>
