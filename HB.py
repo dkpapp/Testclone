@@ -1,4 +1,8 @@
 import asyncio
+import math
+import os
+import time
+import json
 from datetime import datetime
 from pyromodz import Client, filters
 import logging
@@ -28,6 +32,28 @@ class Translation:
 <b>᚛› 𝚃𝙾𝚃𝙰𝙻 𝙲𝙷𝙰𝚃𝚂: <code>{}</code></b>
 <b>᚛› 𝚄𝚂𝙴𝙳 𝚂𝚃𝙾𝚁𝙰𝙶𝙴: <code>{}</code> 𝙼𝙱</b>
 <b>᚛› 𝙵𝚁𝙴𝙴 𝚂𝚃𝙾𝚁𝙰𝙶𝙴: <code>{}</code> 𝙼𝙱</b>"""
+
+def humanbytes(size):
+    # https://stackoverflow.com/a/49361727/4723940
+    # 2**10 = 1024
+  if not size:
+    return ""
+  power = 2**10
+  n = 0
+  Dic_powerN = {0: ' ', 1: 'Ki', 2: 'Mi', 3: 'Gi', 4: 'Ti'}
+  while size > power:
+    size /= power
+    n += 1
+  return str(round(size, 2)) + " " + Dic_powerN[n] + 'B'
+def get_size(size):
+      units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
+      size = float(size)
+      i = 0
+      while size >= 1024.0 and i < len(units):
+          i += 1
+          size /= 1024.0
+      return "%.2f %s" % (size, units[i])
+
 app = Client("main_bot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
 @app.on_message(filters.command("start"))
