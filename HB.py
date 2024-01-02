@@ -4,7 +4,7 @@ import os
 import time
 import json
 from datetime import datetime
-from pyromodz import Client, filters, idle
+from pyrogram import Client, filters, idle
 import logging
 from umongo import Instance, Document, fields
 import motor
@@ -118,8 +118,9 @@ async def start(client, message):
      await rju.edit(Translation.STATUS_TXT.format(files, total_users, totl_chats, size, free))
 
 async def main():
-    logit("Hello Master Dhruv 🥳")
+    
     await app.start()
+    logit("Hello Master Dhruv 🥳")
     await idle()
     await asyncio.gather(*[bot.run() for bot in bots])
     
