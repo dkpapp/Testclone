@@ -4,7 +4,8 @@ import os
 import time
 import json
 from datetime import datetime
-from pyrogram import Client, filters, idle, Message
+from pyrogram import Client, filters, idle
+from pyrogram.types import Message
 import logging
 from umongo import Instance, Document, fields
 import motor
@@ -18,13 +19,13 @@ logging.basicConfig(
     ],
     datefmt="%d/%b/%Y | %H:%M:%S %p",
 )
-logging.getLogger("pyromodz").setLevel(logging.WARNING)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 logit = logger.info
 # Configuration
-API_ID = 14604313  # Replace with your API ID
-API_HASH = "a8ee65e5057b3f05cf9f28b71667203a"  # Replace with your API hash
-TOKEN = "1612398731:AAH6nKToUUeO9DHsKXFsvRnAn6dFJJ3sQtM"
+API_ID = int(os.environ.get("Api", 14604313)) # Replace with your API ID
+API_HASH = os.environ.get("Hash", "a8ee65e5057b3f05cf9f28b71667203a")# Replace with your API hash
+TOKEN = os.environ.get("token", "6602689172:AAHL3t4roHkQNxkF0H3fOcU2KByy6ryF48M")
 bots = []  # List to store cloned bot instances
 class Translation:
     STATUS_TXT = """<b>᚛› 𝚃𝙾𝚃𝙰𝙻 𝙵𝙸𝙻𝙴𝚂: <code>{}</code></b>
