@@ -4,7 +4,7 @@ import os
 import time
 import json
 from datetime import datetime
-from pyrogram import Client, filters, idle
+from pyrogram import Client, filters, idle, Message
 import logging
 from umongo import Instance, Document, fields
 import motor
@@ -57,49 +57,48 @@ def get_size(size):
 app = Client("main_bot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
 @app.on_message(filters.command("start"))
-async def start(client, message):
-    current_time = datetime.now().strftime("%H:%M:%S")
-    total, used, free = shutil.disk_usage(".")
-    total = humanbytes(total)
-    used = humanbytes(used)
-    free = humanbytes(free)
-    await message.reply_text(f"Welcome, {message.from_user.mention}! It's currently {current_time}.")
+async def start(client: Client, message: Message):
+      current_time = datetime.now().strftime("%H:%M:%S")
+      total, used, free = shutil.disk_usage(".")
+      total = humanbytes(total)
+      used = humanbytes(used)
+      free = humanbytes(free)
+      await message.reply_text(f"Welcome, {message.from_user.mention}! It's currently {current_time}.")
 
 @app.on_message(filters.command("clone"))
 async def clone(client, message):
     
-        bot_token = message.text.split(" ")[1].strip()
+      bot_token = message.text.split(" ")[1].strip()
+      cloned_bot = Client("cloned_bot" + str(len(bots)), api_id=API_ID, api_hash=API_HASH, bot_token=bot_token)
+      bots.append(cloned_bot)
 
-        cloned_bot = Client("cloned_bot" + str(len(bots)), api_id=API_ID, api_hash=API_HASH, bot_token=bot_token)
-        bots.append(cloned_bot)
-
-        try:
+      try:
             await cloned_bot.start()
             await message.reply_text("Bot cloned successfully!")
-        except Exception as e:
+      except Exception as e:
             await message.reply_text("Error cloning bot: " + str(e))
 
 @app.on_message(filters.command("clones"))
 async def get_clones(client, message):
-     await message.reply_text(f"Total cloned bots: {len(bots)}")
+      await message.reply_text(f"Total cloned bots: {len(bots)}")
 
 @app.on_message(filters.command("mongo"))
 async def start(client, message):
-     dburl = message.text.split(" ")[1]
-     dbname = message.text.split(" ")[2]
-     COLLECTION_NAME = message.text.split(" ")[3]
-     rju = await message.reply('<b>Processing🔰...</b>')
-     try:
+      dburl = message.text.split(" ")[1]
+      dbname = message.text.split(" ")[2]
+      COLLECTION_NAME = message.text.split(" ")[3]
+      rju = await message.reply('<b>Processing🔰...</b>')
+      try:
         mongo = motor.motor_asyncio.AsyncIOMotorClient(dburl)
         db = mongo[dbname]
         col = db.users
         grp = db.groups
         sizes = await db.command("dbstats")['dataSize']
-     except Exception as e:
+      except Exception as e:
            await rju.edit(f"Error **{e}**")
-     instance = Instance.from_db(db)
-     @instance.register
-     class Media(Document):
+      instance = Instance.from_db(db)
+      @instance.register
+      class Media(Document):
           file_id = fields.StrField(attribute='_id')
           file_ref = fields.StrField(allow_none=True)
           file_name = fields.StrField(required=True)
@@ -109,13 +108,13 @@ async def start(client, message):
           caption = fields.StrField(allow_none=True)
           class Meta:
               collection_name = COLLECTION_NAME
-     files = await Media.count_documents()
-     size = get_size(sizes)
-     free = 536870912 - size
-     free = get_size(free)
-     total_users = await col.count_documents({})
-     totl_chats = await grp.count_documents({})
-     await rju.edit(Translation.STATUS_TXT.format(files, total_users, totl_chats, size, free))
+      files = await Media.count_documents()
+      size = get_size(sizes)
+      free = 536870912 - size
+      free = get_size(free)
+      total_users = await col.count_documents({})
+      totl_chats = await grp.count_documents({})
+      await rju.edit(Translation.STATUS_TXT.format(files, total_users, totl_chats, size, free))
 
 async def main():
     
