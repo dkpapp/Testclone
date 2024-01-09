@@ -119,11 +119,12 @@ async def start(client, message):
 
 async def main():
     
-    #await app.start()
+    await app.start()
     logit("Hello Master Dhruv 🥳")
     await idle()
-    await asyncio.gather(*[bot.run() for bot in bots])
+    await asyncio.gather(*[await bot.start() for bot in bots])
     
 if __name__ == '__main__':
-    asyncio.run(main())
-    app.run()
+    #asyncio.run(main())
+    asyncio.get_event_loop().run_until_complete(main())
+    
