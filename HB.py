@@ -58,7 +58,7 @@ def get_size(size):
 
 app = Client("main_bot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
-@app.on_message(filters.command("start"))
+@Client.on_message(filters.command("start"))
 async def start(client: Client, message: Message):
       current_time = datetime.now().strftime("%H:%M:%S")
       total, used, free = shutil.disk_usage(".")
@@ -67,7 +67,7 @@ async def start(client: Client, message: Message):
       free = humanbytes(free)
       await message.reply_text(f"Welcome, {message.from_user.mention}! It's currently {current_time}.")
 
-@app.on_message(filters.command("clone"))
+@Client.on_message(filters.command("clone"))
 async def clone(client, message):
     
       bot_token = message.text.split(" ")[1].strip()
@@ -80,11 +80,11 @@ async def clone(client, message):
       except Exception as e:
             await message.reply_text("Error cloning bot: " + str(e))
 
-@app.on_message(filters.command("clones"))
+@Client.on_message(filters.command("clones"))
 async def get_clones(client, message):
       await message.reply_text(f"Total cloned bots: {len(bots)}")
 
-@app.on_message(filters.command("mongo"))
+@Client.on_message(filters.command("mongo"))
 async def start(client, message):
       dburl = message.text.split(" ")[1]
       dbname = message.text.split(" ")[2]
