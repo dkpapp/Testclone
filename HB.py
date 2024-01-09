@@ -9,6 +9,7 @@ from pyrogram.types import Message
 import logging
 from umongo import Instance, Document, fields
 import motor
+from motor.motor_asyncio import AsyncIOMotorClient
 import shutil
 logging.basicConfig(
     level=logging.INFO, 
@@ -90,7 +91,7 @@ async def start(client, message):
       COLLECTION_NAME = message.text.split(" ")[3]
       rju = await message.reply('<b>Processing🔰...</b>')
       try:
-        mongo = motor.motor_asyncio.AsyncIOMotorClient(dburl)
+        mongo = AsyncIOMotorClient(dburl)
         db = mongo[dbname]
         col = db.users
         grp = db.groups
