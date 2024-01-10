@@ -65,7 +65,7 @@ async def start(client: Client, message: Message):
       total = humanbytes(total)
       used = humanbytes(used)
       free = humanbytes(free)
-      await message.reply_text(f"Welcome, {message.from_user.mention}! It's currently {current_time}.")
+      await message.reply(f"Welcome, {message.from_user.mention}! It's currently {current_time}.")
 
 @app.on_message(filters.command("clone"))
 async def clone(client, message):
@@ -82,7 +82,7 @@ async def clone(client, message):
 
 @app.on_message(filters.command("clones"))
 async def get_clones(client, message):
-      await message.reply_text(f"Total cloned bots: {len(bots)}")
+      await message.reply_text(f"Total cloned bots: {len(bots)}", quote=true)
 
 @app.on_message(filters.command("mongo"))
 async def start(client, message):
@@ -93,8 +93,8 @@ async def start(client, message):
       try:
         mongo = AsyncIOMotorClient(dburl)
         db = mongo[dbname]
-        col = db.users
-        grp = db.groups
+        col = await db.users
+        grp = await db.groups
         sizes = await db.command("dbstats")['dataSize']
       except Exception as e:
            await rju.edit(f"Error **{e}**")
